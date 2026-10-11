@@ -130,3 +130,13 @@ The [public site terms](https://www.workday.com/en-us/legal/site-terms.html) con
 - Data destinations, retention, model visibility and rate/concurrency limits remain task-specific conditions.
 
 The derived notes use clear, simple language. They are research plans, not an approved implementation specification or a claim of tested behavior.
+
+## Photocraft pattern review (2026-10-11)
+
+This review checks [photocraft](https://github.com/storytold/photocraft) as a pattern source for the command registry in [segment 07](../segments/07-rust-chrome-controller/README.md). Findings continue the numbering above.
+
+| Finding | Problem | Resolution in derived notes |
+|---|---|---|
+| 15: Photocraft owns its state | Photocraft controls the state that it reads. A Workday wrapper only wraps a page that it does not own. Photocraft therefore does not solve verification. | Segment 07 takes only the choke-point pattern. Verification stays a separate check against the declared result. |
+| 16: Photocraft params are a free-text DSL | The params are not JSON Schema. A typed schema is easier to check and to hash for the audit. | Segment 07 requires a params schema and records its hash. |
+| 17: Photocraft has no dry-run, no confirmation step and only a proposed audit | These controls are not shown to work. | Segment 07 treats dry-run, confirmation and audit as design requirements to test, not as proven features. |

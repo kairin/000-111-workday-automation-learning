@@ -85,6 +85,29 @@ A 99% action success rate does not imply 99% full task success. For illustration
 
 The report's API JSON, backend trait, scroll algorithm and shell benchmarks are design sketches. They have not been compiled or executed. The proposed endpoints have no implementation in this repository. The experiments above specify what future work would need to prove; they are not a runnable harness.
 
+## Command registry design (candidate)
+
+This is a design candidate. Nothing here is implemented.
+
+- **One choke point.** All commands go through a single `execute()`. It looks up the command id, checks the params object against the schema, authorizes the call, checks that the command is enabled, and runs it inside `catch_unwind`. An unknown id is rejected.
+- **Layer 0 and Layer 1.** Layer 0 holds raw browser operations such as click and type. The model never calls it. Layer 1 holds named task commands. The model reaches them only through two MCP tools, `command_list` and `command_run`. Because tenants vary, a Layer 1 command may return a redacted snapshot and accept a `choice` param. The `choice` must come from targets that the controller enumerated and allows. Raw click and type stay hidden.
+- **Deny by default.** The model sees only allowlisted fields, with a size cap and a row cap. Unmapped content is dropped. The audit records the dropped count.
+- **Audit fields.** Each call stores the command id, a hash of the params schema, a hash of the snapshot, a hash of the verification string, the decision and the outcome. The hashes allow review without storing page text.
+- **Limit of typed params.** Typed params do not prevent prompt injection. The boundary only limits the blast radius to read-only allowlisted actions. Do not claim prevention.
+- **Pattern source.** [Photocraft](https://github.com/storytold/photocraft) shows the choke-point pattern (lookup, params-object check, authorize, enabled check, run in `catch_unwind`; rmcp 3.5 and schemars 1). Its limits are in the [document review](../../review/2026-10-05-document-review.md): it owns its state, uses a free-text params DSL, and has no dry-run, no confirmation step and only a proposed audit. It does not solve verification.
+- **Fallback.** Wrapping Playwright MCP is the fallback only if the Rust CDP candidate fails the gate.
+
+## Mock-browser acceptance tests
+
+Build the registry crate against a mock browser first. These tests must pass before a real browser is connected:
+
+1. An unknown command id is rejected.
+2. An off-allowlist URL is rejected.
+3. Acting through a stale ref returns `STALE_PAGE_REVISION`. Use the DOM-replacement fixture from [segment 01](../01-llm-web-operation/README.md) (experiment step 7).
+4. Every call is audited, including rejected calls.
+
+Then connect one Rust CDP candidate to a running Chrome that a human has logged in. Compare it with the baseline at Gate 2, using the deciding metrics in [recommendations](../../recommendations.md).
+
 ## Evidence to record
 
 Produce a scenario/result table, failure traces, export checks and resource measurements. Apply the comparison conditions in [current recommendations](../../recommendations.md) to decide whether further Rust work is justified. A shorter control command is useful only when complete workflow behavior and maintenance remain acceptable.

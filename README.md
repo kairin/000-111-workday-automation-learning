@@ -37,6 +37,8 @@ Start with segment 01. It tests the main goal directly. Segments 02 to 06 retain
 |---|---|
 | `docs/segments/` | One folder for each segment. Segments 02 and 03 also hold a code blueprint from the report. |
 | `docs/recommendations.md` | The [current recommendations](docs/recommendations.md), arguments for each goal, decision conditions and open questions. |
+| `docs/baseline/` | The [baseline specification](docs/baseline/README.md), fixtures and run records. |
+| `docs/tasks.md` | The [task list](docs/tasks.md) that an orchestrator dispatches, with the two gates. |
 | `docs/review/` | The [document review](docs/review/2026-10-05-document-review.md). It records the problems in the source documents. |
 | `docs/sources/` | The original documents, without change. |
 
@@ -49,7 +51,7 @@ The source documents are:
 
 ## Working recommendation
 
-Prove one complete website workflow with an existing browser and Playwright first. Compare a Rust controller only when the same representative workflows can show an advantage and an acceptable maintenance cost. See [current recommendations](docs/recommendations.md) for the full comparison, including the separate learning goals and the conditional Workday extraction route.
+Prove one complete website workflow with an existing browser and Playwright first. Compare a Rust controller only when the same representative workflows can show an advantage and an acceptable maintenance cost. See [current recommendations](docs/recommendations.md) for the full comparison, including the separate learning goals and the conditional Workday extraction route. The baseline run is specified in [docs/baseline/](docs/baseline/README.md).
 
 ## Manifest inclusion
 

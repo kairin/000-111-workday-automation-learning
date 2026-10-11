@@ -1,6 +1,6 @@
 # Segment 01: LLM web operation
 
-Status: not started.
+Status: baseline spec written, not run.
 
 ## Research question
 
@@ -59,9 +59,31 @@ Sources: `docs/sources/2026-10-05-discussion.md` and the project `README.md`. Th
 5. Make sure that the page state agrees with the expected result, for example the requested report is displayed with the intended filter. A click returning successfully or a debugger value is insufficient. Take a screenshot if it helps.
 6. Record each gap in the interaction, action-to-result time, retries, human recovery, model round-trips and screenshot use. Report complete verified tasks as the main success measure.
 7. Add local fixtures with a delayed control, a SPA route change and DOM replacement. Test re-observation after a stale target and explicit result waits; a page can remain network-active after its visible result is ready.
-8. If a Rust candidate is needed, run identical logical scenarios with the same result checks. Separate warm and cold runs, browser time and controller overhead. Follow [segment 07](../07-rust-chrome-controller/README.md) for the controller comparison and [segment 08](../08-workday-data-access/README.md) for authorised Workday scenarios.
+8. Run the baseline as specified in [Baseline record specification](#baseline-record-specification). Then, if a Rust candidate is needed, run identical logical scenarios with the same result checks. Separate warm and cold runs, browser time and controller overhead. Follow [segment 07](../07-rust-chrome-controller/README.md) for the controller comparison and [segment 08](../08-workday-data-access/README.md) for authorised Workday scenarios.
 
 These additions are experiments proposed by the Workday report. No results are recorded yet.
+
+## Baseline record specification
+
+This section is a short summary. The full specification and the record schema are in [docs/baseline/README.md](../../baseline/README.md).
+
+**Test site.** Use a public, stable site with no login and no terms-of-service bar on automation. It needs (a) a search with a results list, (b) a sortable or filterable table or virtual list, (c) a file download and (d) an SPA route change. Record the URL, the date and a page hash. Self-hosted fixture copies cover three negative scenarios: a delayed control, a DOM replacement and continuous network activity.
+
+**Tasks.** The tasks are site-neutral. Map them to Workday equivalents later.
+
+| Task | Goal |
+|---|---|
+| T1 | Search and open an item |
+| T2 | Filter a table and read N values |
+| T3 | Trigger a download and verify the file |
+
+Each task has preconditions, params, an exact expected result (values, or a file SHA-256 and row count) and forbidden actions.
+
+**Metrics.** The deciding metrics are complete-task success, correct data, recoveries and wrong-action count. The supporting metrics are step count, snapshot bytes and estimated tokens, wall time, screenshot count and maintenance notes.
+
+**Runs.** Do 5 runs per task per condition (warm and cold), and at least 3. Report all runs. Use the same model and Playwright MCP version for every run.
+
+**Gate 1.** Read the baseline record and decide whether the Rust steps in [segment 07](../07-rust-chrome-controller/README.md) go ahead. The gate rule is in [recommendations](../../recommendations.md).
 
 ## Decision
 
