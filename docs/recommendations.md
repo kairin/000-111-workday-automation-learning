@@ -22,24 +22,24 @@ The feasibility report's terminal-browser preference concerns code generation in
 ## Selection conditions
 
 1. Write the workflow and its expected result. Use roles, names and page state in the Playwright baseline. Record cases that require screenshots.
-2. Use the same logical tasks, fixture data and result checks for a Rust candidate. Consider `chromiumoxide`, `cdp-rs` and `playwright-rs` as candidates, not proven Workday solutions.
-3. Compare complete task success, correct data, recovery from failures, maintenance and packaging. Measure latency, memory and model context as supporting evidence.
-4. Select a Rust controller only if the comparison supports its benefit and cost. Otherwise continue with the baseline.
+2. Use the same logical tasks, fixture data and result checks for a Rust candidate. Choose one candidate (`chromiumoxide`, `cdp-rs` or `playwright-rs`) only after the baseline run, and record the reason in [segment 07](segments/07-rust-chrome-controller/README.md). These are candidates, not proven Workday solutions.
+3. The baseline record is the gate input (see [baseline specification](baseline/README.md)). The deciding metrics are complete-task success, correct data, recoveries and wrong-action count. Latency, tokens, snapshot size, memory and packaging are supporting evidence. Gate 1: the Rust work in [segment 07](segments/07-rust-chrome-controller/README.md) starts only when the baseline record is complete under the baseline specification and shows at least one gap that a controller could reduce (recoveries, wrong actions or snapshot bytes). If the baseline meets the tasks without an important gap, stay with it.
+4. Gate 2: a Rust controller proceeds past the local comparison only if, on identical fixtures, it matches the baseline on complete-task success and correct data, and improves at least one of recoveries, wrong-action count or snapshot bytes. Record the maintenance cost. Latency or tokens alone do not decide. Otherwise continue with the baseline.
 5. For Workday, use an approved documented API or report source when it covers the required fields, access and result checks. Use the browser for approved UI workflows or where no suitable data interface exists.
 
 Playwright documents [locators](https://playwright.dev/docs/locators) and [actionability checks](https://playwright.dev/docs/actionability). [Playwright MCP](https://github.com/microsoft/playwright-mcp) supplies a relevant LLM interaction baseline. The repositories for [chromiumoxide](https://github.com/mattsse/chromiumoxide), [cdp-rs](https://github.com/oh0123/cdp-rs) and [playwright-rs](https://github.com/padamson/playwright-rust) support candidate investigation; they do not establish comparative Workday performance. Primary sources were checked on 2026-10-05.
 
 ## Proof stages
 
-| Stage | Evidence to produce | Decision it supports |
-|---|---|---|
-| Baseline | One complete workflow, expected result, failures and observation gaps | What the LLM needs from a browser |
-| Local comparison | Identical dynamic-page, download and failure scenarios | Whether a Rust controller is worth further work |
-| Workday discovery | Permitted workflows, tenant capabilities, data fields and reference results | Whether an approved data source or UI route fits |
-| Approved sandbox comparison | Full task success, export correctness, recovery and resource measurements | Whether a narrow Workday pilot is justified |
-| Pilot review | Access controls, data handling, audit and maintenance evidence | Whether a separate implementation project is justified |
+| Stage | Evidence to produce | Decision it supports | Record location |
+|---|---|---|---|
+| Baseline | One complete workflow, expected result, failures and observation gaps | What the LLM needs from a browser | `docs/baseline/runs/` |
+| Local comparison | Identical dynamic-page, download and failure scenarios | Whether a Rust controller is worth further work | `docs/baseline/runs/`, same format as the baseline |
+| Workday discovery | Permitted workflows, tenant capabilities, data fields and reference results | Whether an approved data source or UI route fits | [Segment 08](segments/08-workday-data-access/README.md) |
+| Approved sandbox comparison | Full task success, export correctness, recovery and resource measurements | Whether a narrow Workday pilot is justified | Segment 08, after written approval |
+| Pilot review | Access controls, data handling, audit and maintenance evidence | Whether a separate implementation project is justified | A separate project |
 
-These stages have no promised delivery dates. The source report's calendar, latency, memory, token and concurrency values are planning estimates, not results from this repository.
+These stages have no promised delivery dates. The source report's calendar, latency, memory, token and concurrency values are planning estimates, not results from this repository. The [task list](tasks.md) breaks the first stages into dispatchable tasks and places the two gates.
 
 ## Open questions
 

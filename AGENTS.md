@@ -26,6 +26,10 @@ This repository holds learning notes about how an LLM can read and operate a web
 
 No build or test commands. The repository holds documents only.
 
+- Baseline records go under `docs/baseline/`.
+- Never commit Chrome profiles, cookies, snapshot text or screenshots of non-fixture pages.
+- If a Rust crate is added later, update this file with its path and its build and test commands.
+
 A task is done only when you show evidence: command output, a log line or a screenshot.
 
 ## Branches and pull requests

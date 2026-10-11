@@ -66,6 +66,20 @@ For CSV, keep operational metadata distinguishable from the domain columns. Veri
 
 Never place cookies, tokens, SSO assertions or full sensitive URLs in export metadata. Restrict raw data, traces and screenshots to their permitted destination and retention period. Keep only the fields needed for the task. Investigate local filtering and summaries before sending rows to an LLM; token budgets are measurements to record, not adopted report estimates.
 
+## Conditions for the sandbox step
+
+The last phase of the [task list](../../tasks.md) is one approved Workday sandbox read. It is conditional. It is blocked until all of these exist:
+
+| Condition | Evidence needed |
+|---|---|
+| Owner | A named owner of the task and the data |
+| Written approval | Approval for the sandbox read, given outside this repository |
+| Tenant alias | An alias for the approved test tenant, not the tenant address |
+| Approved report | The one report or query that may be read |
+| Redaction rules | Which fields the model may see, and the handling of all other content |
+
+The repository cannot grant these. Until discovery evidence in this segment supports them, the step stays blocked.
+
 ## Sandbox experiment
 
 1. Record the approved task, environment, access conditions, fields and reference result. No live tenant access is assumed by this repository.
