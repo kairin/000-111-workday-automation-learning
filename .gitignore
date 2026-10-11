@@ -1,0 +1,6 @@
+# Build output and local browser run data (never commit)
+target/
+chrome-profile/
+downloads/
+config/local.toml
+__pycache__/

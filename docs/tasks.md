@@ -1,6 +1,6 @@
 # Task list
 
-Status: no task started. This list is the dispatch plan for the proof stages in [current recommendations](recommendations.md). Specifications live elsewhere and are linked, not repeated: the [baseline specification](baseline/README.md), [segment 01](segments/01-llm-web-operation/README.md) (tasks T1–T3), [segment 07](segments/07-rust-chrome-controller/README.md) (registry design, mock tests) and [segment 08](segments/08-workday-data-access/README.md) (sandbox conditions).
+Status: P0 done; P1 not started. This list is the dispatch plan for the proof stages in [current recommendations](recommendations.md). Specifications live elsewhere and are linked, not repeated: the [baseline specification](baseline/README.md), [segment 01](segments/01-llm-web-operation/README.md) (tasks T1–T3), [segment 07](segments/07-rust-chrome-controller/README.md) (registry design, mock tests) and [segment 08](segments/08-workday-data-access/README.md) (sandbox conditions).
 
 ## Orchestrator notes
 
