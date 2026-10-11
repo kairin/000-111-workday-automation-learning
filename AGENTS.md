@@ -19,12 +19,16 @@ This repository holds learning notes about how an LLM can read and operate a web
 
 ## Technologies
 
-- Documentation only: Markdown documents and one HTML report.
+- Documentation: Markdown documents and one HTML report.
+- Check scripts in `scripts/`: Python 3 standard library only.
 - Segments 02 and 03 hold Rust code blueprints (`Cargo.toml` and `src/main.rs`) from the report. Nothing builds them.
 
 ## Development workflow
 
-No build or test commands. The repository holds documents only.
+No build commands. Run these checks before delivery:
+
+- `python3 scripts/check-links.py`: checks relative Markdown links and heading anchors (skips `docs/sources/`). Exits 1 on a broken link.
+- `python3 scripts/check-records.py`: checks `docs/baseline/runs/*.jsonl` against the record schema in `docs/baseline/README.md`. Exits 1 on any problem.
 
 - Baseline records go under `docs/baseline/`.
 - Never commit Chrome profiles, cookies, snapshot text or screenshots of non-fixture pages.
