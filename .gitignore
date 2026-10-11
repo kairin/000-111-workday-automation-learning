@@ -3,3 +3,4 @@ target/
 chrome-profile/
 downloads/
 config/local.toml
+__pycache__/
