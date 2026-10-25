@@ -2,49 +2,30 @@
 
 Single source of truth for AI agents in this repository. If `CLAUDE.md` or `GEMINI.md` exists, it points to this file.
 
+## Project status: migrated, archived pointer-only
+
+On 2026-10-25 the owner consolidated this repository's content into the private
+`000-333-workday-automation-research` repository, under its `learning/` folder.
+Reason: this repository is public-tiered (`000-111-` = public "Learning" per the
+manifest's classification rules), while its content scope overlapped with the
+private research repo's Workday/browser-automation work. Moving the content from
+this public repo into the private one creates no disclosure risk; the content here
+was general learning material, not confidential operational detail.
+
+This repository now holds no working content: no `docs/`, no `scripts/`. Do not
+add new learning content here. Point any new browser-automation or Workday-learning
+work to `000-333-workday-automation-research/learning/` instead. This repository
+is retired and retained as a read-only GitHub archive; its public Git history
+remains available.
+
 ## Security and secrets
 
 - Never expose, print, log, commit, or include in diffs, prompts, fixtures, screenshots, or generated files any API key, token, password, credential, private key, session cookie, or other secret. Redact with `<REDACTED>`.
 - Never ask the user to paste a secret into chat. Do not read or display secret-file contents. If a credential is missing, stop and explain how to provide it securely.
-- Secrets live in the owner's `pass` password store. A command gets a secret only through `with-secret <service>/<name> -- <command>`. Never put a secret in `.env`, `.envrc`, `.envrc.local`, source code, config or documentation.
-- Do not send personal or sensitive data to an external service unless the user explicitly authorizes it.
-
-## Protected files
-
-Do not rewrite these without an explicit per-file instruction from the user: `docs/segments/02-webview-shell/blueprint/Cargo.toml` and `docs/segments/03-terminal-browser/blueprint/Cargo.toml`. Read them freely. If a task needs one changed, stop and ask. `git show origin/main:<file>` is the authoritative original.
-
-## Project overview
-
-This repository holds learning notes about how an LLM can read and operate a website, and where Rust can help with a browser shell or controller. The content is divided into eight research segments in `docs/segments/`. All segments are research plans, not completed experiments. `docs/sources/` holds the original documents without change, and `docs/review/` records the problems in them. There is no browser implementation.
-
-## Technologies
-
-- Documentation: Markdown documents and one HTML report.
-- Check scripts in `scripts/`: Python 3 standard library only.
-- Segments 02 and 03 hold Rust code blueprints (`Cargo.toml` and `src/main.rs`) from the report. Nothing builds them.
-
-## Development workflow
-
-No build commands. Run these checks before delivery:
-
-- `python3 scripts/check-links.py`: checks relative Markdown links and heading anchors (skips `docs/sources/`). Exits 1 on a broken link.
-- `python3 scripts/check-records.py`: checks `docs/baseline/runs/*.jsonl` against the record schema in `docs/baseline/README.md`. Exits 1 on any problem.
-
-- Baseline records go under `docs/baseline/`.
-- Never commit Chrome profiles, cookies, snapshot text or screenshots of non-fixture pages.
-- If a Rust crate is added later, update this file with its path and its build and test commands.
-
-A task is done only when you show evidence: command output, a log line or a screenshot.
 
 ## Branches and pull requests
 
 - Never push to `main` directly. Make a branch, push it, and open a pull request.
-- Keep `CHANGELOG.md` up to date if the repository has one.
-
-## Documentation
-
-- `README.md`: for users.
-- `AGENTS.md` (this file): for agents. Update it when a tool, a command or a rule changes.
 
 ## Git identity
 
@@ -55,6 +36,4 @@ name or with a personal email address. Check with `git config user.name` and
 
 ## Workday project group
 
-Repository: `000-111-workday-automation-learning`. Owns browser automation learning and experiments relevant to Workday. Existing general browser and Rust research remains reference material; the research plans are not completed implementations. Automation research belongs in
-`000-333-workday-automation-research`; browser automation learning belongs in
-`000-111-workday-automation-learning`.
+Repository: `000-111-workday-automation-learning`. Formerly owned browser automation learning and experiments relevant to Workday; that content is now migrated to `000-333-workday-automation-research` (private), under `learning/`. This repo is retained as a pointer stub only, consistent with the manifest's public-tier naming convention for `000-111-`.
