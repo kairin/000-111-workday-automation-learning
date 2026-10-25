@@ -1,4 +1,4 @@
-# 000-111-workday-automation-learning — AI Agent Guidelines
+# 000-999-workday-automation-learning — AI Agent Guidelines
 
 Single source of truth for AI agents in this repository. If `CLAUDE.md` or `GEMINI.md` exists, it points to this file.
 
@@ -36,4 +36,4 @@ name or with a personal email address. Check with `git config user.name` and
 
 ## Workday project group
 
-Repository: `000-111-workday-automation-learning`. Formerly owned browser automation learning and experiments relevant to Workday; that content is now migrated to `000-333-workday-automation-research` (private), under `learning/`. This repo is retained as a pointer stub only, consistent with the manifest's public-tier naming convention for `000-111-`.
+Repository: `000-999-workday-automation-learning`. Formerly owned browser automation learning and experiments relevant to Workday; that content is now migrated to `000-333-workday-automation-research` (private), under `learning/`. This public repository is archived and retained as a pointer stub only. Its former `000-111-` prefix placed it in the Learning tier; its current `000-999-` prefix identifies it as archived.
